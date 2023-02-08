@@ -22,7 +22,9 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result);
+      //setResult(data.result);
+      var reactfindDomNode = React.findDOMNode(this);
+       $(reactfindDomNode).append("<h2>"+data.result+"</h2>");
       setAnimalInput("");
     } catch(error) {
       // Consider implementing your own error handling logic here
@@ -39,7 +41,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        
+        <div className={styles.result}>{result}</div>
         <h3>Ask me</h3>
         <form onSubmit={onSubmit}>
           <input
@@ -51,7 +53,7 @@ export default function Home() {
           />
           <input type="submit" value="Submit"/>
         </form>
-        <div className={styles.result}>{result}</div>
+        
       </main>
     </div>
   );
