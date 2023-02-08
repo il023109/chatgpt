@@ -33,7 +33,7 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result);
+      setResult(data.result+result);
       setAnimalInput("");
     } catch(error) {
       // Consider implementing your own error handling logic here
@@ -74,7 +74,7 @@ export default function Home() {
 const ParentComponent = ({ children, addComponent }) => {
   return (
     <>
-      <button onClick={addComponent}>Add another component</button>
+      
       <div>{children}</div>
     </>
   )
