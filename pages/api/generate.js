@@ -52,21 +52,20 @@ export default async function (req, res) {
     });
    
    res.status(200).json({ result: completion.data.choices[0].text });
-} catch (error) {
-    if (error.response?.status) {
-        console.error(error.response.status, error.message);
-        error.response.data.on('data', data => {
-            const message = data.toString();
-            try {
-                const parsed = JSON.parse(message);
-                console.error('An error occurred during OpenAI request: ', parsed);
-            } catch(error) {
-                console.error('An error occurred during OpenAI request: ', message);
-            }
-        });
+}catch(error) {
+    // Consider adjusting the error handling logic for your use case
+    if (error.response) {
+      console.error(error.response.status, error.response.data);
+      res.status(error.response.status).json(error.response.data);
     } else {
-        console.error('An error occurred during OpenAI request', error);
+      console.error(`Error with OpenAI API request: ${error.message}`);
+      res.status(500).json({
+        error: {
+          message: 'An error occurred during your request.',
+        }
+      });
     }
+  }
 }
 
 function generatePrompt(animal) {
