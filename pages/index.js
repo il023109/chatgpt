@@ -33,7 +33,7 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result+result);
+      setResult(result + "<div>"+data.result+"</div>");
       setAnimalInput("");
     } catch(error) {
       // Consider implementing your own error handling logic here
