@@ -30,26 +30,12 @@ export default async function (req, res) {
     const completion  = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: animal,
-        max_tokens: 100,
+        max_tokens: 1000,
         temperature: 0.7,
        
     }, { responseType: 'stream' });
     
-    completion.data.on('data', data => {
-        const lines = data.toString().split('\n').filter(line => line.trim() !== '');
-        for (const line of lines) {
-            const message = line.replace(/^data: /, '');
-            if (message === '[DONE]') {
-                return; // Stream finished
-            }
-            try {
-                const parsed = JSON.parse(message);
-                console.log(parsed.choices[0].text);
-            } catch(error) {
-                console.error('Could not JSON parse stream message', message, error);
-            }
-        }
-    });
+  
    
    res.status(200).json({ result: completion.data.choices[0].text });
 }catch(error) {
