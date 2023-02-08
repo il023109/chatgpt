@@ -20,7 +20,7 @@ export default async function (req, res) {
   if (animal.trim().length === 0) {
     res.status(400).json({
       error: {
-        message: "Please enter a valid animal",
+        message: "Please enter a valid question",
       }
     });
     return;
@@ -29,7 +29,7 @@ export default async function (req, res) {
   try {
     const completion = await openai.createCompletion({
       model: "text-davinci-003",
-      prompt: generatePrompt(animal),
+      prompt: animal,
       temperature: 0.6,
     });
     res.status(200).json({ result: completion.data.choices[0].text });
