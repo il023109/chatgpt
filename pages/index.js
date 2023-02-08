@@ -5,6 +5,17 @@ import styles from "./index.module.css";
 export default function Home() {
   const [animalInput, setAnimalInput] = useState("");
   const [result, setResult] = useState();
+  const [numChildren, setNumChildren] = useState(0)
+  const children = []
+
+  for (let i = 0; i < numChildren; i++) {
+    children.push(<ChildComponent key={i} number={i} />)
+  }
+
+  const addComponent = () => {
+    setNumChildren((count) => count + 1)
+  }
+
 
   async function onSubmit(event) {
     event.preventDefault();
@@ -22,9 +33,7 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      //setResult(data.result);
-      var reactfindDomNode = React.findDOMNode(this);
-       $(reactfindDomNode).append("<h2>"+data.result+"</h2>");
+      setResult(data.result);
       setAnimalInput("");
     } catch(error) {
       // Consider implementing your own error handling logic here
@@ -42,6 +51,9 @@ export default function Home() {
 
       <main className={styles.main}>
         <div className={styles.result}>{result}</div>
+        <div className="Home">
+                 <ParentComponent addComponent={addComponent}>{children}</ParentComponent>
+        </div>
         <h3>Ask me</h3>
         <form onSubmit={onSubmit}>
           <input
@@ -57,4 +69,17 @@ export default function Home() {
       </main>
     </div>
   );
+}
+
+const ParentComponent = ({ children, addComponent }) => {
+  return (
+    <>
+      <button onClick={addComponent}>Add another component</button>
+      <div>{children}</div>
+    </>
+  )
+}
+
+const ChildComponent = () => {
+  return <h4>This is a child component</h4>
 }
