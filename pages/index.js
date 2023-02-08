@@ -33,7 +33,8 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(result + "<H2>"+data.result+"</H2>");
+      setResult(data.result);
+      //ParentComponent()
       setAnimalInput("");
     } catch(error) {
       // Consider implementing your own error handling logic here
@@ -45,8 +46,8 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>OpenAI Quickstart</title>
-        <link rel="icon" href="/dog.png" />
+        <title>Ask me anything</title>
+       
       </Head>
 
       <main className={styles.main}>
@@ -59,7 +60,7 @@ export default function Home() {
           <input
             type="text"
             name="animal"
-            placeholder="Enter an animal"
+            placeholder="Enter a question here"
             value={animalInput}
             onChange={(e) => setAnimalInput(e.target.value)}
           />
@@ -80,6 +81,6 @@ const ParentComponent = ({ children, addComponent }) => {
   )
 }
 
-const ChildComponent = () => {
-  return <h4>This is a child component</h4>
+const ChildComponent = ({text}) => {
+  return <h4>{text}</h4>
 }
