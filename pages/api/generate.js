@@ -27,15 +27,15 @@ export default async function (req, res) {
   }
 
  try {
-    const res = await openai.createCompletion({
-        model: "text-davinci-002",
-        prompt: "It was the best of times",
-        max_tokens: 100,
+    const completion  = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: animal,
+        max_tokens: 1000,
         temperature: 0,
         stream: true,
     }, { responseType: 'stream' });
     
-    res.data.on('data', data => {
+    completion.data.on('data', data => {
         const lines = data.toString().split('\n').filter(line => line.trim() !== '');
         for (const line of lines) {
             const message = line.replace(/^data: /, '');
@@ -50,6 +50,8 @@ export default async function (req, res) {
             }
         }
     });
+   
+   res.status(200).json({ result: completion.data.choices[0].text });
 } catch (error) {
     if (error.response?.status) {
         console.error(error.response.status, error.message);
