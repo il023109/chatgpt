@@ -32,7 +32,7 @@ export default async function (req, res) {
         prompt: animal,
         max_tokens: 100,
         temperature: 0.7,
-        stream: true,
+       
     }, { responseType: 'stream' });
     
     completion.data.on('data', data => {
