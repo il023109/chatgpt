@@ -55,7 +55,7 @@ export default function Home() {
         <div className="Home">
                  <ParentComponent addComponent={addComponent}>{children}</ParentComponent>
         </div>
-        <h3>Hi</h3>
+        <h3></h3>
         <form onSubmit={onSubmit}>
           <input
             type="text"
