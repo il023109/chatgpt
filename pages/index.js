@@ -35,7 +35,7 @@ export default function Home() {
 
       setResult(data.result);
       //ParentComponent()
-      setAnimalInput("");
+    //  setAnimalInput("");
     } catch(error) {
       // Consider implementing your own error handling logic here
       console.error(error);
